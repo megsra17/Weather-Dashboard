@@ -1,0 +1,39 @@
+:root {
+  --header-gradient: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  --wd-primary: #6991e3;
+  --wd-secondary: #aeaeae;
+}
+
+/* Background Color */
+
+.bg-header {
+  background: var(--header-gradient);
+}
+
+/* Buttons */
+
+.btn-primary {
+  background: var(--wd-primary);
+  color: white;
+  border-radius: 5px;
+  display: flex;
+}
+
+.btn-secondary {
+  background: var(--wd-secondary);
+  color: black;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-secondary:hover {
+  background: var(--wd-primary);
+  color: white;
+}
