@@ -14,7 +14,9 @@ var pastSearch = document.querySelector('#search-area')
 function searchHandler (event){
     event.preventDefault();
     var location = inputEl.value.trim();
+    
     localStorage.setItem('city', location);
+   
     
     currectDayForecast(location);
     fiveDayForcast(location);
@@ -22,7 +24,6 @@ function searchHandler (event){
 
 function currectDayForecast(location){
     var cityUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&units=imperial&appid=" + apiKey;
-
 
     fetch(cityUrl)
     .then(function(response){
@@ -38,6 +39,7 @@ function currectDayForecast(location){
         var weatherIcon = document.createElement('img')
         var currentDay = document.createElement('div')
         var pastInput = document.createElement('a')
+       
 
         weatherIcon.src="http://openweathermap.org/img/wn/"+ citys.weather[0].icon +".png"
 
@@ -48,7 +50,6 @@ function currectDayForecast(location){
         wind.classList.add('px-3')
         humidity.classList.add('px-3')
         currentDay.classList.add('border')
-        
 
         city.textContent= citys.name + " " + dateEl;
        temp.textContent = "Temp: " + citys.main.temp + " F"
@@ -69,9 +70,13 @@ function currectDayForecast(location){
 }
 
 
-function fiveDayForcast(city){
+function fiveDayForcast(location){
+    var { lat } = location;
+    var { lon } = location;
 
-    var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast/daily?q="+ location+"&units=imperial&cnt=5&appid=" + apiKey;
+    console.log(location)
+
+var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&cnt=5&appid=" + apiKey;
 
     fetch(forcastUrl)
     .then(function(response){
@@ -81,10 +86,26 @@ function fiveDayForcast(city){
         console.log(forcast)
 
         var fiveDay = document.createElement('div');
+        var city = document.createElement('h3')
+        var temp = document.createElement('p')
+        var wind = document.createElement('p')
+        var humidity = document.createElement('p')
+        var weatherIcon = document.createElement('img')
 
+         weatherIcon.src="http://openweathermap.org/img/wn/"+ forcast.weather[0].icon +".png"
+
+         city.classList.add('px-3')
+        city.classList.add('py-3')
+        temp.classList.add('px-3')
+        wind.classList.add('px-3')
+        humidity.classList.add('px-3')
         fiveDay.classList.add('col')
         fiveDay.classList.add('bg-fiveday')
         fiveDay.classList.add('text-white')
+
+       temp.textContent = "Temp: " + citys.main.temp + " F"
+       wind.textContent = "Wind: " + citys.wind.speed + " MPH"
+       humidity.textContent = "Humidity: " + citys.main.humidity + " %"
 
     })
 }
