@@ -10,20 +10,59 @@
 var inputEl= document.querySelector('#location-input');
 var formEl =document.querySelector('form');
 var apiKey = '36bec115901ddc1cb3dd725c6d1f7f33';
+var forecastEL = document.querySelector('#forecast')
+var dateEl = moment().format("MM-DD-YYYY");
+
 
 function searchHandler (event){
     event.preventDefault();
 
-    var location = inputEl;
+    var location = inputEl.value.trim();
     
-    var cityUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=" + apiKey;
+    var cityUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&units=imperial" + "&appid=" + apiKey;
 
     fetch(cityUrl)
     .then(function(response){
         return response.json();
     })
-    .then(function(city){
-        console.log(city)
+    .then(function(citys){
+        console.log(citys)
+
+        var city = document.createElement('h3')
+        var temp = document.createElement('p')
+        var wind = document.createElement('p')
+        var humidity = document.createElement('p')
+        var weatherIcon = document.createElement('img')
+        var currentDay = document.createElement('div')
+        var fiveDay = document.createElement('div');
+
+        weatherIcon.src="http://openweathermap.org/img/wn/"+ citys.weather[0].icon +".png"
+
+        city.classList.add('px-3')
+        city.classList.add('py-3')
+        temp.classList.add('px-3')
+        wind.classList.add('px-3')
+        humidity.classList.add('px-3')
+        currentDay.classList.add('border')
+        fiveDay.classList.add('col')
+
+        city.textContent= citys.name + " " + dateEl;
+       temp.textContent = "Temp: " + citys.main.temp + " F"
+       wind.textContent = "Wind: " + citys.wind.speed + " MPH"
+       humidity.textContent = "Humidity: " + citys.main.humidity + " %"
+
+        forecastEL.prepend(currentDay);
+
+        currentDay.append(city)
+        city.append(weatherIcon)
+        currentDay.append(temp)
+        currentDay.append(wind)
+        currentDay.append(humidity)
+
+        inputEl.value = ''
+
+        //create new api url for forcast grabing the citys lan and long
+
     })
 }
 

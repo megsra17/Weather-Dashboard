@@ -37,3 +37,10 @@
   background: var(--wd-primary);
   color: white;
 }
+
+/* Border */
+
+.border {
+  border: solid 3px black !important;
+  margin-bottom: 30px;
+}
