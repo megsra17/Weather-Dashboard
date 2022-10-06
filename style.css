@@ -7,12 +7,17 @@
   );
   --wd-primary: #6991e3;
   --wd-secondary: #aeaeae;
+  --wd-accent: #323d4f;
 }
 
 /* Background Color */
 
 .bg-header {
   background: var(--header-gradient);
+}
+
+.bg-fiveday {
+  background: var(--wd-accent);
 }
 
 /* Buttons */
