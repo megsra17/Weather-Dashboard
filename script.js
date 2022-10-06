@@ -8,6 +8,7 @@ var formEl =document.querySelector('form');
 var apiKey = '36bec115901ddc1cb3dd725c6d1f7f33';
 var forecastEL = document.querySelector('#forecast')
 var dateEl = moment().format("MM-DD-YYYY");
+var fiveForcast = document.querySelector('#rowEl')
 var pastSearch = document.querySelector('#search-area')
 
 
@@ -76,7 +77,7 @@ function fiveDayForcast(location){
 
     console.log(location)
 
-var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&cnt=5&appid=" + apiKey;
+var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?q="+location+"&units=imperial&appid=" + apiKey;
 
     fetch(forcastUrl)
     .then(function(response){
@@ -84,28 +85,35 @@ var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon
     })
     .then(function(forcast){
         console.log(forcast)
+        for (var i = 0; i < forcast.list.length; i+=8){
+             var fiveDay = document.createElement('div');
+             var date = document.createElement('p')
+            var temp = document.createElement('p')
+            var wind = document.createElement('p')
+            var humidity = document.createElement('p')
+            var weatherIcon = document.createElement('img')
 
-        var fiveDay = document.createElement('div');
-        var city = document.createElement('h3')
-        var temp = document.createElement('p')
-        var wind = document.createElement('p')
-        var humidity = document.createElement('p')
-        var weatherIcon = document.createElement('img')
+            weatherIcon.src="http://openweathermap.org/img/wn/"+ forcast.list[i].weather[0].icon +".png"
 
-         weatherIcon.src="http://openweathermap.org/img/wn/"+ forcast.weather[0].icon +".png"
+            date.classList.add('px-3')
+            temp.classList.add('px-3')
+            wind.classList.add('px-3')
+            humidity.classList.add('px-3')
+            fiveDay.classList.add('col')
+            fiveDay.classList.add('bg-fiveday')
+            fiveDay.classList.add('text-white')
 
-         city.classList.add('px-3')
-        city.classList.add('py-3')
-        temp.classList.add('px-3')
-        wind.classList.add('px-3')
-        humidity.classList.add('px-3')
-        fiveDay.classList.add('col')
-        fiveDay.classList.add('bg-fiveday')
-        fiveDay.classList.add('text-white')
+            temp.textContent = "Temp: " + forcast.list[i].main.temp + " F"
+            wind.textContent = "Wind: " + forcast.list[i].wind.speed + " MPH"
+            humidity.textContent = "Humidity: " + forcast.list[i].main.humidity + " %"
 
-       temp.textContent = "Temp: " + citys.main.temp + " F"
-       wind.textContent = "Wind: " + citys.wind.speed + " MPH"
-       humidity.textContent = "Humidity: " + citys.main.humidity + " %"
+            fiveForcast.append(fiveDay);
+            fiveDay.append(weatherIcon);
+            fiveDay.append(temp);
+            fiveDay.append(wind);
+            fiveDay.append(humidity);
+        }
+       
 
     })
 }
