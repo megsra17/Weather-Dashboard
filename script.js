@@ -1,12 +1,10 @@
-
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 var inputEl= document.querySelector('#location-input');
 var formEl =document.querySelector('form');
 var apiKey = '36bec115901ddc1cb3dd725c6d1f7f33';
 var forecastEL = document.querySelector('#forecast')
+var currentDayEl = document.querySelector('#currentDay')
 var dateEl = moment().format("MM-DD-YYYY");
 var fiveForcast = document.querySelector('#rowEl')
 var pastSearch = document.querySelector('#search-area')
@@ -17,10 +15,10 @@ function searchHandler (event){
     var location = inputEl.value.trim();
     
     localStorage.setItem('city', location);
-   
     
     currectDayForecast(location);
     fiveDayForcast(location);
+
 }
 
 function currectDayForecast(location){
@@ -31,6 +29,7 @@ function currectDayForecast(location){
         return response.json();
     })
     .then(function(citys){
+        currentDayEl.innerHTML = '';
         console.log(citys)
         var cityLocalStorage = localStorage.getItem('city');
         var city = document.createElement('h3')
@@ -39,7 +38,11 @@ function currectDayForecast(location){
         var humidity = document.createElement('p')
         var weatherIcon = document.createElement('img')
         var currentDay = document.createElement('div')
-        var pastInput = document.createElement('a')
+        var pastInput = document.createElement('button')
+
+        function pastLocation (event){
+            event.preventDefault();
+        }
        
 
         weatherIcon.src="http://openweathermap.org/img/wn/"+ citys.weather[0].icon +".png"
@@ -58,7 +61,7 @@ function currectDayForecast(location){
        humidity.textContent = "Humidity: " + citys.main.humidity + " %"
        pastInput.textContent = cityLocalStorage;
 
-        forecastEL.prepend(currentDay);
+        currentDayEl.prepend(currentDay);
         pastSearch.append(pastInput)
         currentDay.append(city)
         city.append(weatherIcon)
@@ -72,10 +75,7 @@ function currectDayForecast(location){
 
 
 function fiveDayForcast(location){
-    var { lat } = location;
-    var { lon } = location;
-
-    console.log(location)
+   
 
 var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?q="+location+"&units=imperial&appid=" + apiKey;
 
@@ -84,8 +84,9 @@ var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?q="+location+"
         return response.json();
     })
     .then(function(forcast){
+         fiveForcast.innerHTML = " ";
         console.log(forcast)
-        for (var i = 0; i < forcast.list.length; i+=8){
+        for (var i = 2; i < forcast.list.length; i+=8){
              var fiveDay = document.createElement('div');
              var date = document.createElement('p')
             var temp = document.createElement('p')
@@ -102,12 +103,15 @@ var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?q="+location+"
             fiveDay.classList.add('col')
             fiveDay.classList.add('bg-fiveday')
             fiveDay.classList.add('text-white')
+            fiveDay.classList.add('py-3')
 
+            date.textContent = moment.unix(forcast.list[i].dt).format("MM-DD-YYYY")
             temp.textContent = "Temp: " + forcast.list[i].main.temp + " F"
             wind.textContent = "Wind: " + forcast.list[i].wind.speed + " MPH"
             humidity.textContent = "Humidity: " + forcast.list[i].main.humidity + " %"
 
             fiveForcast.append(fiveDay);
+            fiveDay.append(date);
             fiveDay.append(weatherIcon);
             fiveDay.append(temp);
             fiveDay.append(wind);
