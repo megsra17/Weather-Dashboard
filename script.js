@@ -1,5 +1,3 @@
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
 var inputEl= document.querySelector('#location-input');
 var formEl =document.querySelector('form');
 var apiKey = '36bec115901ddc1cb3dd725c6d1f7f33';
