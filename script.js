@@ -30,6 +30,7 @@ function currectDayForecast(location){
     })
     .then(function(citys){
         currentDayEl.innerHTML = '';
+        
         console.log(citys)
         var cityLocalStorage = localStorage.getItem('city');
         var city = document.createElement('h3')
@@ -66,9 +67,14 @@ function currectDayForecast(location){
         currentDay.append(wind)
         currentDay.append(humidity)
 
-        
-        pastInput.addEventListener('click',searchHandler)
 
+       pastInput.addEventListener("click", function(){
+           txt = "";
+            var txt = this.innerHTML;
+           currectDayForecast(txt);
+           fiveDayForcast(txt);
+       })
+       
 
         inputEl.value = ''
     })
