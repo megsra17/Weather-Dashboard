@@ -82,7 +82,7 @@ function currectDayForecast(location){
 function fiveDayForcast(location){
    
 
-var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?q="+location+"&units=imperial&appid=" + apiKey;
+var forcastUrl = "https://api.openweathermap.org/data/2.5/forecast?q="+location+"&units=imperial&appid=" + apiKey;
 
     fetch(forcastUrl)
     .then(function(response){
@@ -99,7 +99,7 @@ var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?q="+location+"
             var humidity = document.createElement('p')
             var weatherIcon = document.createElement('img')
 
-            weatherIcon.src="http://openweathermap.org/img/wn/"+ forcast.list[i].weather[0].icon +".png"
+            weatherIcon.src="https://openweathermap.org/img/wn/"+ forcast.list[i].weather[0].icon +".png"
 
             date.classList.add('px-3')
             temp.classList.add('px-3')
