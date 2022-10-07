@@ -20,7 +20,7 @@ function searchHandler (event){
 }
 
 function currectDayForecast(location){
-    var cityUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&units=imperial&appid=" + apiKey;
+    var cityUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&units=imperial&appid=" + apiKey;
 
     fetch(cityUrl)
     .then(function(response){
@@ -39,7 +39,7 @@ function currectDayForecast(location){
         var currentDay = document.createElement('div')
         var pastInput = document.createElement('button')
     
-        weatherIcon.src="http://openweathermap.org/img/wn/"+ citys.weather[0].icon +".png"
+        weatherIcon.src="https://openweathermap.org/img/wn/"+ citys.weather[0].icon +".png"
 
         pastInput.classList.add('btn-secondary')
         city.classList.add('px-3')
