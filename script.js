@@ -39,12 +39,7 @@ function currectDayForecast(location){
         var weatherIcon = document.createElement('img')
         var currentDay = document.createElement('div')
         var pastInput = document.createElement('button')
-
-        function pastLocation (event){
-            event.preventDefault();
-        }
-       
-
+    
         weatherIcon.src="http://openweathermap.org/img/wn/"+ citys.weather[0].icon +".png"
 
         pastInput.classList.add('btn-secondary')
@@ -54,6 +49,8 @@ function currectDayForecast(location){
         wind.classList.add('px-3')
         humidity.classList.add('px-3')
         currentDay.classList.add('border')
+
+        pastInput.type = 'button'
 
         city.textContent= citys.name + " " + dateEl;
        temp.textContent = "Temp: " + citys.main.temp + " F"
@@ -68,6 +65,10 @@ function currectDayForecast(location){
         currentDay.append(temp)
         currentDay.append(wind)
         currentDay.append(humidity)
+
+        
+        pastInput.addEventListener('click',searchHandler)
+
 
         inputEl.value = ''
     })
