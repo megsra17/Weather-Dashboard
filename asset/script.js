@@ -7,6 +7,7 @@ var dateEl = moment().format("MM-DD-YYYY");
 var fiveForcast = document.querySelector("#rowEl");
 var pastSearch = document.querySelector("#search-area");
 
+//stores searched cities in local storage
 var pastSearchCities = JSON.parse(localStorage.getItem("cities")) || [];
 
 for (var i = 0; i < pastSearchCities.length; i++) {
@@ -19,6 +20,7 @@ if (pastLocation) {
   fiveDayForcast(pastLocation);
 }
 
+//search function for app
 function searchHandler(event) {
   event.preventDefault();
   var location = inputEl.value.trim();
@@ -30,6 +32,7 @@ function searchHandler(event) {
   fiveDayForcast(location);
 }
 
+//loades last cities
 function renderPastCitiesBtn(location) {
   var pastInput = document.createElement("button");
 
@@ -45,7 +48,7 @@ function renderPastCitiesBtn(location) {
     fiveDayForcast(txt);
   });
 }
-
+//gets current forecast
 function currectDayForecast(location) {
   var cityUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -105,6 +108,7 @@ function currectDayForecast(location) {
     });
 }
 
+//gets five day forecast
 function fiveDayForcast(location) {
   var forcastUrl =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
