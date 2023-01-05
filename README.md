@@ -17,7 +17,7 @@ THEN I am again presented with current and future conditions for that city
 HTML CSS JavaScript
 
 ## Screenshot
-![This is an image of my project](https://github.com/megsra17/Weather-Dashboard/blob/main/Screen%20Shot%202022-10-07%20at%202.13.06%20PM.png)
+![This is an image of my project](https://github.com/megsra17/Weather-Dashboard/blob/main/asset/Screen%20Shot%202022-10-07%20at%202.13.06%20PM.png)
 
 ## Url Link
 [Challange 6](https://megsra17.github.io/Weather-Dashboard/)
