@@ -105,6 +105,10 @@ function currectDayForecast(location) {
       );
       pastSearchCities.push(cityLocalStorage);
       inputEl.value = "";
+    })
+    .catch((error) => {
+      alert("Error 404: Not Found");
+      inputEl.value("");
     });
 }
 
